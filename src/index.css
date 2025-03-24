@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #111;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body{
+  overflow: hidden;
+}
+
+.no-scrollbar::-webkit-scrollbar{
+  display: none;
+}
+.shadow-text{
+  text-shadow:0 0 8px rgba(0, 0, 0, 0.8) ;
+}
+.shadow-box{
+  box-shadow:0 0 4px #1111115e;
+}
