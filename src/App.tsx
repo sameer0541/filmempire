@@ -8,6 +8,8 @@ import axios from "axios";
 import { setOriginals } from "./lib/store/originalsReducer";
 import { setTVShows } from "./lib/store/tvShowsReducer";
 import Footer from "./components/Footer";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,6 @@ const App = () => {
         }
     })
     const data = res.data.results;
-    console.log(data)
     dispatch(setTrendingMovie(data));
 }
 const fetchOriginals =async()=>{
@@ -61,9 +62,15 @@ useEffect(()=>{
 },[])
   return (
     <>
+    <SignedIn>
       <Navbar />
       <HeroSection />
       <Footer/>
+    </SignedIn>
+    <SignedOut>
+      <div>YOU ARE NOT AUTHORIZED.PLEASE SIGN IN</div>
+      <SignInButton/>
+    </SignedOut>
     </>
   );
 };

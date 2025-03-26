@@ -24,7 +24,6 @@ const Watch = () => {
         }
     })
     setVideoKey(res.data.results.at(-1).key);
-    console.log(videoKey);
   },[id, videoKey])
   useEffect(()=>{
     fetchTrailer();
@@ -35,7 +34,7 @@ const Watch = () => {
         <div className='w-screen h-screen absolute overflow-hidden -z-10 drop-shadow-lg '>
             <img src={`https://image.tmdb.org/t/p/w500/${imageUrl}`} alt="bg-cover" className='w-full h-full object-fill items-center' width={1000} height={720} />
         </div>
-        <Link to={'/'} className='text-white text-2xl'><span>&larr;</span></Link>
+        <Link to={'/'} className='text-neutral-400 text-4xl backdrop-blur-2xl'><span>&larr;</span></Link>
         <div className='flex flex-col h-3/4 justify-around pl-6 selection:bg-neutral-50'>
             <div className='flex flex-col w-2/5 h-2/5 max-sm:w-full'>
             <h2 className='text-slate-50 font-semibold w-fit h-fit overflow-hidden text-wrap text-ellipsis text-[max(5vw,24px)] line-clamp-2 shadow-text'>{title}</h2>

@@ -1,12 +1,9 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { SignedIn, UserButton } from "@clerk/clerk-react";
 import { Link, NavLink, useLocation} from "react-router-dom";
 
 const Navbar = () => {
-  const [toggledrop,setToggledrop] = useState(false);
-  const session = {user:{image:'',name:'Sameer'}};
   const pathname = useLocation();
-  
-
     return(
     <nav className={`w-full flex items-center justify-between h-[10vh] fixed z-50 bg-gradient-to-b from-black to-black/5 shadow-lg shadow-black/5`}>
       <div className=" h-full flex items-center justify-center object-contain px-[5vw] py-3 relative gap-4">
@@ -35,31 +32,21 @@ const Navbar = () => {
           <NavLink to={'/'} className='text-white font-normal text-lg px-3 text-nowrap hidden sm:block selection:bg-neutral-100 selection:text-neutral-800'>Home</NavLink>
           <NavLink to={'/tvShows'} className='text-white font-normal text-lg px-3 text-nowrap hidden sm:block selection:bg-neutral-100 selection:text-neutral-800'>TV Shows</NavLink>
           <NavLink to={'/allMovie'} className='text-white font-normal text-lg px-3 text-nowrap hidden sm:block selection:bg-neutral-100 selection:text-neutral-800'>Movies</NavLink>
-          <NavLink to={'/'} className='text-white font-normal text-lg px-3 text-nowrap hidden sm:block selection:bg-neutral-100 selection:text-neutral-800'>New&Popular</NavLink>
-          <NavLink to={'/'} className='text-white font-normal text-lg px-3 text-nowrap hidden sm:block selection:bg-neutral-100 selection:text-neutral-800'>My List</NavLink>
+          {/* <NavLink to={'/'} className='text-white font-normal text-lg px-3 text-nowrap hidden sm:block selection:bg-neutral-100 selection:text-neutral-800' aria-disabled>Contact us</NavLink>
+          <NavLink to={'/'} className='text-white font-normal text-lg px-3 text-nowrap hidden sm:block selection:bg-neutral-100 selection:text-neutral-800'>My List</NavLink> */}
         </div>  
       </div>
       
       <div className="flex items-center justify-center pr-4 gap-7">
-        <button className={`${pathname.pathname==='/'?'hidden':'block'}`}>
+        <div className={`w-full flex items-center justify-center min-h-full rounded-full ${pathname.pathname!=='/' ? 'bg-neutral-700':'bg-transparent'}`}>
+        <input type="text" className={`border-none active:border-none w-[15vw] max-md:w-[50vw] text-neutral-200/90 rounded-full bg-transparent h-full py-2  pl-6 text-xl font-semibold`} />
+        <button className={`${pathname.pathname==='/'?'hidden':'block'}`} onClick={()=>{}}>
           <img src="/assets/search.png" alt="search" width={45} height={45} className={`cursor-pointer ${pathname.pathname === "/" ? 'hidden':'block'}`}/>
         </button>
-        <div className="object-contain flex relative items-center">
-          <img src={session?.user.image || "/assets/Google.png"} alt='profile' width={54} height={54} className=' object-cover rounded-full' onClick={()=>setToggledrop((prev)=>!prev)}/>
-          {toggledrop&&(
-            <div className="absolute min-w-[210px] right-0 mt-[5vh] flex flex-col items-end justify-center bg-slate-200 rounded-lg px-8 top-5">
-              <div className="w-full h-4 relative top-1 -right-[150px] mb-6" onClick={()=>setToggledrop(false)}>
-                <h2 className="border border-neutral-800 rounded-full w-6 h-6 text-center cursor-pointer text-neutral-800">X</h2>
-              </div>
-              
-              <Link to="/"  onClick={()=>{setToggledrop(false)}}  className="text-sm font-medium px-2 pb-2 text-neutral-800" >{session?.user.name}</Link>
-              <button   
-              className='w-full px-2 py-1 bg-[#28282b] flex flex-row rounded-full gap-2 items-center justify-center mb-2'>
-                <span className='text-white font-medium text-md '>Sign Out</span>
-              </button>
-            </div>
-          )}
-        </div>    
+        </div>
+        <SignedIn>
+          <UserButton/>
+        </SignedIn>
       </div>
     </nav>)
 }

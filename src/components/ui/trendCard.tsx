@@ -6,7 +6,7 @@ const TrendCard = ({data,translateValue,elementIndex,poster_path,setTransValue}:
   return (
     <div className={`w-[max(20vw,195px)] h-[max(18vw,145px)] flex flex-row items-center justify-center -gap-2 select-none 
     -translate-x-[calc(${translateValue}*25vw)] transition-all duration-300 ease-in-out`} onClick={()=>setTransValue(elementIndex)}>
-      <h2 className='text-[max(8vw,85px)] text-slate-600'>{elementIndex+1 || 2}</h2>
+      <h2 className='text-[max(8vw,85px)] text-slate-600 text-border'>{elementIndex+1 || 2}</h2>
       <div className={`w-[max(18vw,195px)] h-[max(12vw,125px)] rounded-md bg-transparent text-white z-10 cursor-pointer ${elementIndex===translateValue ? 'border border-neutral-100  p-1 scale-[1.05]':''}`} >
         
       <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="backdrop" className="h-full w-full object-fill" />

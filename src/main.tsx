@@ -11,6 +11,12 @@ import TVWatch from "./pages/[...tvid].tsx";
 import OriginaslWatch from "./pages/[...originalid].tsx";
 import AllTVShows from "./pages/tvShows.tsx";
 import AllMovies from "./pages/allMovies.tsx";
+import { ClerkProvider } from "@clerk/clerk-react";
+
+const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+if(!PUBLISHABLE_KEY){
+  throw new Error('NO PUBLISHABLE_KEY')
+}
 
 const router = createBrowserRouter([
   {
@@ -34,9 +40,11 @@ const router = createBrowserRouter([
 
 const root = createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
     <Provider store={store}>
       <RouterProvider router={router}/>
     </Provider>
+    </ClerkProvider>
   </StrictMode>
 );
 export default root

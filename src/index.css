@@ -20,5 +20,9 @@ body{
   text-shadow:0 0 8px rgba(0, 0, 0, 0.8) ;
 }
 .shadow-box{
-  box-shadow:0 0 4px #1111115e;
+  box-shadow:0 0 4px #fc3131ec;
+}
+.text-border{
+  text-decoration: solid;
+  background:transparent;
 }

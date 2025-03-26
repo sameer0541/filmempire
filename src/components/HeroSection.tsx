@@ -4,9 +4,8 @@
 import { Link } from "react-router-dom";
 import TrendCard from "./ui/trendCard"
 import {  useSelector } from "react-redux"
-import { useState } from "react";
-import Cross from "./icons/cross";
-import Tick from "./icons/tick";
+import { useEffect, useState } from "react";
+import Faq from "./FAQ";
 
 const HeroSection = () => {
   const netOriginal = useSelector((state:any)=>state.trendingMovie.trendingMovies);
@@ -14,16 +13,26 @@ const HeroSection = () => {
   const TVShows = useSelector((state:any)=>state.TVShows.TVShowsList)
   const [transValue,setTransValue] = useState(0);
   
-  // useEffect(()=>{
-  //   const interval = setInterval(() => {
-  //     setTransValue((prev)=>(prev+1)%5)
-  //   }, 2000);
-  //   return ()=> clearInterval(interval);
-  // },[])
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      setTransValue((prev)=>(prev+1)%5)
+    }, 4000);
+    return ()=> clearInterval(interval);
+  },[netOriginal])
   return(
   <>
       <section className="w-screen h-screen relative overflow-x-hidden no-scrollbar">
-      <img src={netOriginal!=undefined ?`https://image.tmdb.org/t/p/w500/${netOriginal[transValue]?.poster_path}` :"/assets/background.png"} alt="back" className="w-screen h-[95vh] object-fill transition-all" width={1080} height={720}/>
+      <img src={netOriginal!=undefined ?`https://image.tmdb.org/t/p/w500/${netOriginal[transValue]?.poster_path}` :"/assets/background.png"} alt="back" className="w-screen h-[95vh] object-fill transition-all blur-lg" width={1080} height={720}/>
+      
+      <img src={netOriginal!=undefined ?`https://image.tmdb.org/t/p/w500/${netOriginal[transValue]?.poster_path}` :"/assets/background.png"} alt="back" className="h-[70vh] lg:w-[50vw] w-[90vw] object-fill transition-all duration-200 ease-in-out absolute top-[10vh] left-[5vw] rounded-lg shadow-lg shadow-neutral-700/50" width={1080} height={720}/>
+        {netOriginal.length>0 && (
+      <div className="absolute text-neutral-200 w-[30vw] h-[50vh] right-10 top-[15vh] overflow-hidden z-10">
+
+          <h1 className="overflow-hidden text-ellipsis line-clamp-2 text-2xl sm:text-5xl xl:text-7xl hidden lg:block font-semibold">{ netOriginal[transValue]?.title || netOriginal[transValue].original_title || 'No title'}</h1>
+          <h3 className=" mt-2 text-neutral-100 font-medium hidden lg:block">{netOriginal[transValue].overview}</h3>
+      </div>
+        )}
+        <h4></h4>
       <div className="absolute w-full min-h-[10vh] bottom-0 bg-gradient-to-t from-[#111] to-transparent -translate-y-[5vh] "/>
       <div className={`w-full overflow-y-hidden overflow-x-scroll no-scrollbar flex flex-row -mt-[15vh] absolute md:relative md:-mt-[10vh] lg:-mt-[15vh] gap-6 pl-[20vw] pr-[20vw]`}>
         {netOriginal.slice(0,5).map((movie:any,index:number)=><TrendCard key={index} elementIndex={index} data={index} translateValue={transValue} poster_path={movie.poster_path} setTransValue={setTransValue}/>)}
@@ -83,62 +92,19 @@ const HeroSection = () => {
               )
             })}
         </div>
-    </section>
     <div className="w-full min-h-[50vh] flex flex-row">
-    <div className='w-full h-screen flex items-center justify-center'>
-      <h1 className='text-neutral-50 text-[max(3vw,15px)]'>Frequently Asked Question</h1>
-      <details>
-        <summary className="text-neutral-300 font-semibold">What is Netflix?</summary>
-        <p>Netflix is a popular streaming service that offers a vast library of movies, TV shows, documentaries, and original content.</p>
-      </details>
-      <details>
-        <summary className="text-neutral-300 font-semibold">How musch does it cost?</summary>
-        <div className="flex flex-row">
-          <div className="flex flex-row text-white">
-            <p>Basic</p>
-            <h4>$7.99</h4>
-          </div>
-          <div>
-            <ul className="text-white list-none">
-              <li className="text-neutral-100"><Tick/></li>
-              <li className="text-neutral-100"><Tick/></li>
-              <li className="text-neutral-100"><Cross/></li>
-            </ul>
-          </div>
+      <div className='w-full min-h-[75vh] flex flex-col justify-start items-center pl-2 md:pl-[10vh]  gap-2 mt-10 mb-4'>
+        <h1 className='text-neutral-50 text-[max(3vw,25px)]'>Frequently Asked Question</h1>
+        <Faq/>
+        <h4 className="mt-[5vh] font-semibold">Ready to watch? Enter your email to create or restart your membership.</h4>
+        <div className="flex flex-row items-center justify-center w-[40vw] h-[5vh] gap-1 mb-[7vh]">
+          <input type="text" className="flex flex-3 bg-neutral-100 h-full text-neutral-900 px-2" placeholder="Email Address"/>
+          <button className="bg-red-600 py-2 px-3 flex-1 text-nowrap h-full cursor-pointer">Get Started</button>
         </div>
-        <div className="flex flex-row">
-          <div className="flex flex-row text-white">
-            <p>Standard</p>
-            <h4>$10.99</h4>
-          </div>
-          <div>
-            <ul className="text-white list-none">
-              <li className="text-neutral-100"><Tick/></li>
-              <li className="text-neutral-100"><Tick/></li>
-              <li className="text-neutral-100"><Cross/></li>
-            </ul>
-          </div>
-        </div>
-        <div className="flex flex-row">
-          <div className="flex flex-row text-white">
-            <p>Premium</p>
-            <h4>$12.99</h4>
-          </div>
-          <div>
-            <ul className="text-white list-none">
-              <li className="text-neutral-100"><Tick/></li>
-              <li className="text-neutral-100"><Tick/></li>
-              <li className="text-neutral-100"><Cross/></li>
-            </ul>
-          </div>
-        </div>
-      </details>
-      <details>
-        <summary className="text-neutral-300 font-semibold">Where can i Watch?</summary>
-        <p>Netflix is a popular streaming service that offers a vast library of movies, TV shows, documentaries, and original content.</p>
-      </details>
+        <div className="w-screen h-[10vh] "/>
+      </div>
     </div>
-    </div>
+    </section>
     </>
   )
 }
